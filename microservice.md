@@ -28,7 +28,15 @@ This paper presents **PARL approach** to arrive at a definition of the microserv
 
 ## Background
 
-_Insert example here_
+Consider a large Government organisation that is embarking on a digital transformation journey to deliver better services to its citizens, enhance its relationship with its vendors and collaborate better with other organisations. This Government organisation starts its journey by inspecting all of its business processes for improvement. That inspection may result in shelving of some processes (or steps of it), enhancment of existing processes with sensor data, Machine Learning models, etc. or design of brand new business processes. The result of the inspection is handed over to software development organisation (in house or contracted out) for implementation.
+
+The software development organisation focusses on implementing the requirements with maximum utilisation of server resources. To achieve high utilisation, the software development organisation has embraced (or embarked) on adoption of containerisation as its development approach. This adoption has resulted in a transformation that transcends tooling (DevOps, source control, binary repositories, issue management, etc.), software design and development (microservices, automated testing, infrastructure as code and so on) and even software management (automated issue management, release management, feature management and so on).
+
+Naturally, the Government organisation and software development organisation should be in close alignment so that both are on track with their journeys. While there are methods and practices to enable this alignment, this article takes it to a level where this alignment is 'baked' into requirements gathering and software development processes.
+
+Consider an initiative by the Government organisation to efficiently engage its contractors where, the process of work order allocation till payment disbursal is to be streamlined. This process can cut across multiple departments of the organisation such as Engineering, Quality Control, Finance, Legal and so on. Clearly, this process is highly complicate as it has many stakeholders across all departments and the turn around time for this process may run into days. To streamline this complicated process with a 'big bang' approach would involve a long cycle of requirements gathering followed by development and testing. And, by the end of that cycle, it is likely that there are changes from the original requirements. To minimise such changes to requirements, the organisations - Government and software development - agree to follow an agile approach where software is delivered in smaller pieces so that even if there are changes to the requirements, it is caught and fixed early on.
+
+Soon, the agile approach results in a multitude of artefacts for both organisations that reduces visibility of the larger picture. Here too, the management of multitude of artefacts is not unknown in the industry. However, the larger goal - the focus of this article - is to enable alignment and management of artefacts at the level of "narrowly defined" functionality. This enablement is offered by the **PARL approach** that allows the software development and Government organisations to "speak" the same language without getting into artefacts management.
 
 ### PARL approach
 
@@ -42,7 +50,7 @@ The goal of PARL approach is to arrive at the **PARL table** (see below) for var
 | -------------------------- | ------------------------------ | ------------------- | --------------------------- |
 | _Who accesses the system?_ | _How is the nature of access?_ | _What is accessed?_ | _Where is the access from?_ |
 
-The rest of the paper covers how to build and use the PARL table.
+The rest of the paper covers how to build the PARL table and use it to build the microservice table.
 
 - [Building the PARL table](#building-the-parl-table)
 - [Building the microservices table](#using-the-parl-table)
@@ -318,7 +326,7 @@ Till this point, this article has described the PARL approach to align the busin
 
 As next steps, servers should be implemented with the created specification. This article used the OAS to generate the specification for the microservice table. The OAS can be fed into a code generator such as [Swagger Codegen](https://swagger.io/tools/swagger-codegen/) to generate the skeleton for microservice.
 
-With the microservice completely developed, it can be converted into a Docker image and deployed into a Kubernetes cluster. To see an end-to-end view, a **Deployment Table** can be drawn to corelate the microservice and the deployed image.
+With the microservice completely developed, it can be converted into a Docker image and deployed into a Kubernetes cluster. To see an end-to-end view, a **Deployment Table** can be drawn to corelate the microservice and the deployed image. The **Deployment Table** is not a mandatory component of **PARL approach**. Nevertheless, it helps in putting in an end-to-end perspective from requirements to unit of deployment.
 
 | **Docker image**          | **Microservice**           | **Persona**                   | **Action** | **Resource**     | **Location**                                     |
 | ------------------------- | -------------------------- | ----------------------------- | ---------- | ---------------- | ------------------------------------------------ |
