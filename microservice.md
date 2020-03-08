@@ -4,12 +4,11 @@ The software development requirements laid down by an organization are driven by
 
 This article presents **PARL approach** to arrive at a definition of the microservice that brings the alignment of business and software development teams easily.
 
-> **tl;dr** In PARL approach, a microservice is defined by business as *"Persona takes Action on a Resource from a Location"*. This definition helps a Software Architect to clearly lay out technical specifications for maximum server utilisation. These specifications are implemented by a Developer into tangible entities.
+> **tl;dr** In PARL approach, a microservice is defined by business as *"Persona takes Action on a Resource from a Location"*. This definition helps a Software Architect to clearly lay out technical specifications for maximum server utilisation in the form of a microservice table. This microservice table helps a Developer implement the requirements into tangible entities.
 
 - [Abstract](#abstract)
   - [Background](#background)
   - [PARL approach](#parl-approach)
-    - [PARL approach artefacts](#parl-approach-artefacts)
   - [Building the PARL table](#building-the-parl-table)
     - [System Context diagram](#system-context-diagram)
       - [Entities](#entities)
@@ -18,11 +17,11 @@ This article presents **PARL approach** to arrive at a definition of the microse
       - [Resource](#resource)
     - [Location diagram](#location-diagram)
     - [Tabulation into PARL table](#tabulation-into-parl-table)
-  - [Building the microservice table](#building-the-microservice-table)
+  - [Building the microservices table](#building-the-microservices-table)
     - [Roll-up into microservice(s)](#roll-up-into-microservices)
     - [Number assignment](#number-assignment)
     - [Microservice table](#microservice-table)
-  - [Using the microservice table](#using-the-microservice-table)
+  - [Using the microservices table](#using-the-microservices-table)
     - [Defining the microservice with OAS](#defining-the-microservice-with-oas)
   - [Next steps](#next-steps)
   - [Summary](#summary)
@@ -35,39 +34,39 @@ The software development organisation focusses on implementing the requirements 
 
 Naturally, the Government organisation and software development organisation should be in close alignment so that both are on track with their journeys. While there are methods and practices to enable this alignment, this article takes it to a level where this alignment is 'baked' into requirements gathering and software development processes.
 
-Consider an initiative by the Government organisation to efficiently engage its contractors where, the process of work order allocation till payment disbursal is to be streamlined. This process can cut across multiple departments of the organisation such as Engineering, Quality Control, Finance, Legal and so on. Clearly, this process is highly complicated as it has many stakeholders across all departments and the turn around time for this process may run into days. To streamline this complicated process with a 'big bang' approach would involve a long cycle of requirements gathering followed by development and testing. And, by the end of that cycle, it is likely that there are changes from the original requirements. To minimise such changes to requirements, the organisations - Government and software development - agree to follow an agile approach where software is delivered in smaller pieces so that even if there are changes to the requirements, it is caught and fixed early on.
+Specifically, consider an initiative by the Government organisation to efficiently engage its contractors where, the process of work order allocation till disbursal of payment is to be streamlined. This process can cut across multiple departments of the organisation such as Engineering, Quality Control, Finance, Legal and so on. Clearly, this process is highly complicated as it has many stakeholders across all departments and the turn around time for this process may run into days. To streamline this complicated process with a 'big bang' approach would involve a long cycle of requirements gathering followed by development and testing. And, by the end of that cycle, it is likely that there are deviations from the original requirements. To minimise such changes to requirements, the organisations - Government and software development - agree to follow an agile approach where software is delivered in smaller pieces so that even if there are changes to the requirements, it is caught and fixed early on.
 
-Soon, the agile approach results in a multitude of artefacts for both organisations that reduces visibility of the larger picture. Here too, the management of multitude of artefacts is not unknown in the industry. However, the larger goal - the focus of this article - is to enable alignment and management of artefacts at the level of "narrowly defined" functionality. This enablement is offered by the **PARL approach** that allows the software development and Government organisations to "speak" the same language without getting into artefacts management.
+Soon, the agile approach results in a multitude of artefacts for both organisations that reduces visibility of the larger picture. More importantly, the governance of these artefacts, given their number, have to now span across automated testing and deployment. Here too, the management of multitude of artefacts is not unknown in the industry. However, the larger goal - the focus of this article - is to enable alignment and management of artefacts at the level of "narrowly defined" functionality. This enablement is offered by the **PARL approach** that allows the software development and Government organisations to "speak" the same language without getting into artefacts management.
 
 ## PARL approach
 
 The PARL approach is summarised as:
 
 - [Building the PARL table](#building-the-parl-table)
-- [Building the microservices table](#using-the-parl-table)
-- [Using the microservices table](#using-the-microservice-table)
+- [Building the microservices table](#building-the-microservices-table)
+- [Using the microservices table](#using-the-microservices-table)
 
-The PARL table has multiple rows that correspond to one simple rule, as called out below, at the most granular level of business processes.
+The PARL table has multiple rows that correspond to one simple rule at the most granular level of business processes. This rule is as follows.
 
 > **P**ersona takes **A**ction on a **R**esource from a **L**ocation.
 
-The tabulation of the rule is shown as below
+The microservice table builds upon the PARL table to provide an implementation view of granular business processes. The microservice table merges two or more rows of PARL table into one microservice. Finally, a deployment table builds upon the microservice table to provide a view of tangible artefacts that will run in product and is tied down to the rows of microservice table, and in turn the PARL table.
+
+Therefore, the following are the artefacts of the PARL approach:
+
+| Artefact name                 | Purpose                                                                                             | Owned by                          |
+| ----------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------- |
+| PARL Table                    | The usiness organization view of all business processes at their _most granular_ level.             | Business Organization             |
+| Microservice Table            | The Software Development view, built on top of PARL table, for artefacts that need to be developed. | Software Design Organization      |
+| _(Optional)_ Deployment Table | Merged version of PARL Table and Microservice Table for an end-to-end view.                         | Software Development Organization |
+
+## Building the PARL table
+
+As mentioned previously, the PARL approach builds upon the rule of *"Persona takes Action on a Resource from a Location"* at the most granular level of busines processes. The tabulation of the rule is acheived by answering the questions as shown in the table.
 
 | **Persona**                | **Action**                     | **Resource**        | **Location**                |
 | -------------------------- | ------------------------------ | ------------------- | --------------------------- |
 | _Who accesses the system?_ | _How is the nature of access?_ | _What is accessed?_ | _Where is the access from?_ |
-
-### PARL approach artefacts
-
-The following are the artefacts of the PARL approach:
-
-| Artefact name | Purpose |
-| ------------- | ------- |
-| PARL Table | The usiness organization view of all business processes at their _most granular_ level. |
-| Microservice Table | The Software Development view, built on top of PARL table, for artefacts that need to be developed. |
-| _(Optional)_ Deployment Table | Merged version of PARL Table and Microservice Table for an end-to-end view. |
-
-## Building the PARL table
 
 To build a PARL table, the following diagrams are required for a system that is to be designed. Refer [C4 Model](https://c4model.com) for description.
 
@@ -77,7 +76,7 @@ To build a PARL table, the following diagrams are required for a system that is 
 | **Container**      | Define various systems and interactions logically.                                             |
 | **Deployment**     | Identify the access mode of a given entity where, mode is a combination of network and device. |
 
-If these diagrams do not exist, then the required information maybe gathered from other sources.
+If these diagrams do not exist, then the required information maybe gathered from other sources that will answer the questions as shown in the previous table.
 
 ### System Context diagram
 
@@ -96,6 +95,8 @@ Consider an entity who is a human user that interacts with a system developed fo
 Even system accesses should also be similarly enumerated. For example, this system may post daily data in batch to another - external or internal - system. Or, an external system may invoke a REST API of this system for look-up, updates, etc.
 
 These entities - human or system - is referred to in this article as **Persona** and is a key list that should be extracted from the System Context diagram.
+
+> As the organization matures in its journey of transformation, it is indeed possible, that a microservice designated in the PARL table may itself become an Entity.
 
 #### Action
 
@@ -151,14 +152,14 @@ With the information gathered from all the diagrams, a PARL table is constructed
 | **Persona**                  | **Action**                     | **Resource**                 | **Location**                                     |
 | ---------------------------- | ------------------------------ | ---------------------------- | ------------------------------------------------ |
 | _Who accesses the system?_   | _How is the nature of access?_ | _What is accessed?_          | _Where is the access from?_                      |
-| _Use System Context diagram_ | _Use Container Diagram_        | _Use System Context diagram_ | _Use Location diagram_                         |
+| _Use System Context diagram_ | _Use Container Diagram_        | _Use System Context diagram_ | _Use Location diagram_                           |
 | Head of Department           | `DELETE`                       | Purchase Order               | Corporate LAN, WLAN from corporate issued laptop |
 | Citizen                      | `READ`                         | Press releases               | Public WiFi, 4G from any device                  |
 | Vigilance Department Head    | `READ`                         | Financial Data               | Corporate LAN from designated server             |
 | Customer Service Desk        | `CREATE`                       | Service Requests             | Corporate LAN from designated desktop            |
 | Supervisor                   | `UPDATE`                       | Override actions             | Public WiFi, 4G from corporate issued smartphone |
 
-## Building the microservice table
+## Building the microservices table
 
 A microservice table is built using the PARL table. While the PARL table describes the combination of Persona, Action, Resource and Location in its most granular level, the microservice table focuses on implementation. Specifically, the microservice table helps map the number of rows in the PARL table into number of microservices, where the number of microservices is less than or equal to number of rows in PARL table. The microservice table serves as the common reference for both business and software development organizations.
 
@@ -203,7 +204,7 @@ Using the table from the [Tabulation into PARL table](#tabulation-into-parl-tabl
 
 Note that, the PARL table had seven rows in all whereas, the microservice table (above) has 5. This is because, `systemName/PARL#webapp#1` and `systemName/PARL#webapp#2` microservices together map 4 rows of the PARL table.
 
-## Using the microservice table
+## Using the microservices table
 
 While the microservice table defines the requirements unambiguously, the table is not a technical specification document. For example, the table does not describe the semantics of a `CREATE` action. This article chooses OpenAPI specification to convert the microservice table into a technical specification.
 
