@@ -1,21 +1,22 @@
 # Abstract
 
-The software development requirements laid down by an organization are driven by domain knowledge towards the goal of achieving the "mission statement" of an organization. The software development team implements the requirements towards the goal of maximum server utilisation in a quick and an automated fashion. These goals are aligned only if the software development requirements are unambiguosly understood by both business organization and software development team. The alignment of business and software development goals is even more necessary in today's era of microservices. While the software development team can achieve very high server utilisation by developing microservices ("single purpose" artefacts), the business organisation will define the boundary of microservice.
+The software development requirements laid down by an organization are driven by domain knowledge towards the goal of achieving the "mission statement" of an organization. The software development team implements the requirements towards the goal of maximum server utilisation in a quick and an automated fashion. These goals are aligned only if the software development requirements are unambiguosly understood by both business organization and software development teams. The alignment of business and software development goals is even more necessary in today's era of microservices. While the software development team can achieve very high server utilisation by developing microservices ("single purpose" artefacts), the business organisation will define the boundary of microservice.
 
-This paper presents **PARL approach** to arrive at a definition of the microservice that brings the alignment of business and software development teams easily.
+This article presents **PARL approach** to arrive at a definition of the microservice that brings the alignment of business and software development teams easily.
 
 > **tl;dr** In PARL approach, a microservice is defined by business as *"Persona takes Action on a Resource from a Location"*. This definition helps a Software Architect to clearly lay out technical specifications for maximum server utilisation. These specifications are implemented by a Developer into tangible entities.
 
 - [Abstract](#abstract)
   - [Background](#background)
-    - [PARL approach](#parl-approach)
+  - [PARL approach](#parl-approach)
+    - [PARL approach artefacts](#parl-approach-artefacts)
   - [Building the PARL table](#building-the-parl-table)
     - [System Context diagram](#system-context-diagram)
       - [Entities](#entities)
       - [Action](#action)
     - [Container](#container)
       - [Resource](#resource)
-    - [Deployment diagram](#deployment-diagram)
+    - [Location diagram](#location-diagram)
     - [Tabulation into PARL table](#tabulation-into-parl-table)
   - [Building the microservice table](#building-the-microservice-table)
     - [Roll-up into microservice(s)](#roll-up-into-microservices)
@@ -34,31 +35,41 @@ The software development organisation focusses on implementing the requirements 
 
 Naturally, the Government organisation and software development organisation should be in close alignment so that both are on track with their journeys. While there are methods and practices to enable this alignment, this article takes it to a level where this alignment is 'baked' into requirements gathering and software development processes.
 
-Consider an initiative by the Government organisation to efficiently engage its contractors where, the process of work order allocation till payment disbursal is to be streamlined. This process can cut across multiple departments of the organisation such as Engineering, Quality Control, Finance, Legal and so on. Clearly, this process is highly complicate as it has many stakeholders across all departments and the turn around time for this process may run into days. To streamline this complicated process with a 'big bang' approach would involve a long cycle of requirements gathering followed by development and testing. And, by the end of that cycle, it is likely that there are changes from the original requirements. To minimise such changes to requirements, the organisations - Government and software development - agree to follow an agile approach where software is delivered in smaller pieces so that even if there are changes to the requirements, it is caught and fixed early on.
+Consider an initiative by the Government organisation to efficiently engage its contractors where, the process of work order allocation till payment disbursal is to be streamlined. This process can cut across multiple departments of the organisation such as Engineering, Quality Control, Finance, Legal and so on. Clearly, this process is highly complicated as it has many stakeholders across all departments and the turn around time for this process may run into days. To streamline this complicated process with a 'big bang' approach would involve a long cycle of requirements gathering followed by development and testing. And, by the end of that cycle, it is likely that there are changes from the original requirements. To minimise such changes to requirements, the organisations - Government and software development - agree to follow an agile approach where software is delivered in smaller pieces so that even if there are changes to the requirements, it is caught and fixed early on.
 
 Soon, the agile approach results in a multitude of artefacts for both organisations that reduces visibility of the larger picture. Here too, the management of multitude of artefacts is not unknown in the industry. However, the larger goal - the focus of this article - is to enable alignment and management of artefacts at the level of "narrowly defined" functionality. This enablement is offered by the **PARL approach** that allows the software development and Government organisations to "speak" the same language without getting into artefacts management.
 
-### PARL approach
+## PARL approach
 
 The PARL approach is summarised as:
-
-> **P**ersona takes **A**ction on a **R**esource from a **L**ocation.
-
-The goal of PARL approach is to arrive at the **PARL table** (see below) for various business processes at their most granular level.
-
-| **Persona**                | **Action**                     | **Resource**        | **Location**                |
-| -------------------------- | ------------------------------ | ------------------- | --------------------------- |
-| _Who accesses the system?_ | _How is the nature of access?_ | _What is accessed?_ | _Where is the access from?_ |
-
-The rest of the paper covers how to build the PARL table and use it to build the microservice table.
 
 - [Building the PARL table](#building-the-parl-table)
 - [Building the microservices table](#using-the-parl-table)
 - [Using the microservices table](#using-the-microservice-table)
 
+The PARL table has multiple rows that correspond to one simple rule, as called out below, at the most granular level of business processes.
+
+> **P**ersona takes **A**ction on a **R**esource from a **L**ocation.
+
+The tabulation of the rule is shown as below
+
+| **Persona**                | **Action**                     | **Resource**        | **Location**                |
+| -------------------------- | ------------------------------ | ------------------- | --------------------------- |
+| _Who accesses the system?_ | _How is the nature of access?_ | _What is accessed?_ | _Where is the access from?_ |
+
+### PARL approach artefacts
+
+The following are the artefacts of the PARL approach:
+
+| Artefact name | Purpose |
+| ------------- | ------- |
+| PARL Table | The usiness organization view of all business processes at their _most granular_ level. |
+| Microservice Table | The Software Development view, built on top of PARL table, for artefacts that need to be developed. |
+| _(Optional)_ Deployment Table | Merged version of PARL Table and Microservice Table for an end-to-end view. |
+
 ## Building the PARL table
 
-To build a PARL table, the following diagrams are required for every system that is to be ... (or developed). Refer [C4 Model](https://c4model.com) for description
+To build a PARL table, the following diagrams are required for a system that is to be designed. Refer [C4 Model](https://c4model.com) for description.
 
 | Diagram            | Purpose                                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------------------- |
@@ -72,11 +83,11 @@ If these diagrams do not exist, then the required information maybe gathered fro
 
 A *System Context diagram* presents the system and its interactions with its environment<sup>1</sup>. When drawing or interpreting this diagram, the key point is to enumerate the entities that will interact with the system _and_ the nature of the interaction. Note, the _target_ of interaction is documented within a Container diagram. For complex systems, a study of the Container diagram can reveal the target(s). Otherwise, it should be inferred from other sources of information.
 
-Refer this [link](https://en.wikipedia.org/wiki/System_context_diagram) for more details including an example diagram.
+![System Context Diagram](png/bigbankplc-SystemContext.png)
 
-*Insert sample diagram here*
+In the diagram (from [here](https://c4model.com/img/bigbankplc-SystemContext.png)) above, the dashed line is the enterprise boundary which is accessed by an entity **Personal Banking Customer**. Notice, how the nature of action - **Views account balances and makes payments** is also called out in this diagram. However, in PARL approach, this should be broken down into a much granular level as applicable.
 
-The following sub-sections describe Entities, Resource and Action as interpreted from the System Context diagram.
+Further, from this diagram, the Entity is the **Personal Banking Customer** and the **Actions** are viewing balances and making payments. The following sub-sections describe Entities and Action as interpreted from the System Context diagram.
 
 #### Entities
 
@@ -84,7 +95,7 @@ Consider an entity who is a human user that interacts with a system developed fo
 
 Even system accesses should also be similarly enumerated. For example, this system may post daily data in batch to another - external or internal - system. Or, an external system may invoke a REST API of this system for look-up, updates, etc.
 
-These entities - human or system - is referred to in this paper as **Persona** and is a key list that should be extracted from the System Context diagram.
+These entities - human or system - is referred to in this article as **Persona** and is a key list that should be extracted from the System Context diagram.
 
 #### Action
 
@@ -109,7 +120,11 @@ Finally, in both of the examples above, a final call maybe taken before building
 
 The Container diagram will describe various servers (and their interaction) including data stores. For the PARL table, the servers of interest are the ones denoting the target of interaction.
 
-*Insert sample diagram here*
+![Container Diagram](png/bigbankplc-Containers.png)
+
+In the diagram (from [here](https://c4model.com/img/bigbankplc-Containers.png)) above, we see multiple applications that the Personal Banking Customer will interact with for his/her Actions. Of particular interest in this diagram is the database component because that is the target of Actions.
+
+From this diagram, the Resource is the **Database** that stores information on User registration. The **Mainframe Banking System** is also the Resource even though it is outside the enterprise boundary. This is an important observation because, from a business organization stand-point, the enterprise boundary only separates the new system to be developed and the one that is already existing.
 
 #### Resource
 
@@ -117,15 +132,17 @@ Once the Personae have been enumerated, for every Persona, a list of all resourc
 
 A list of Resources mapped to every Persona is the next key list to be prepared. **Note** that, it is likely that the Resource may be defined in the Container diagram for complex systems.
 
-### Deployment diagram
+### Location diagram
 
-In today's era, the mode of access is an important factor where, the mode is a function of device and network. For example, a user may have a work laptop and a smartphone - own or company issued - to access a system over different networks. These networks could be LAN and WLAN in a corporate setting or a home network. Or, it could be public WiFi or a 4G connection.
+In today's era, the mode of access is an important factor where, the mode is a combination of device and network. For example, a user may have a work laptop and a smartphone - own or company issued - to access a system over different networks. These networks could be LAN and WLAN in a corporate setting or a home network. Or, it could be public WiFi or a 4G connection.
 
 Certain organisations may have policies to restrict access based on network-device combination. For example, a field executive maybe allowed to publish or access reports from any network as long as he uses a corporate issued device. Similarly, an employee maybe allowed to access email only from a corporate issue device _and_ connected over VPN, etc.
 
-Such a mapping of Personae and **Location** is typically documented in a Deployment diagram.
+Such a mapping of Personae and **Location** is typically documented in a Location diagram.
 
-*Insert sample diagram here*
+![Location Diagram](png/location-diagram.png)
+
+In the diagram above, the persona, their physical location and their mode of access in terms of network and device have been called. For example, senior management can access maintenance system over phone and laptop. The phone and laptop are assumed to be corporate issued. Similarly, the supervisors can access the maintenance system with a corporate issued phone over a 4G network, and so on.
 
 ### Tabulation into PARL table
 
@@ -134,7 +151,7 @@ With the information gathered from all the diagrams, a PARL table is constructed
 | **Persona**                  | **Action**                     | **Resource**                 | **Location**                                     |
 | ---------------------------- | ------------------------------ | ---------------------------- | ------------------------------------------------ |
 | _Who accesses the system?_   | _How is the nature of access?_ | _What is accessed?_          | _Where is the access from?_                      |
-| _Use System Context diagram_ | _Use Container Diagram_        | _Use System Context diagram_ | _Use Deployment diagram_                         |
+| _Use System Context diagram_ | _Use Container Diagram_        | _Use System Context diagram_ | _Use Location diagram_                         |
 | Head of Department           | `DELETE`                       | Purchase Order               | Corporate LAN, WLAN from corporate issued laptop |
 | Citizen                      | `READ`                         | Press releases               | Public WiFi, 4G from any device                  |
 | Vigilance Department Head    | `READ`                         | Financial Data               | Corporate LAN from designated server             |
@@ -156,7 +173,7 @@ Once the PARL table is built, then every row of the PARL table can be an individ
 
 One way to translate the number of rows in PARL table into number of microservices could be assigning a number of invocations for every row of the PARL table. Certain rows of the PARL table may also be designated as premium or free microservice(s). Alternatively, rows for mobile-only features maybe left as unique microservices. An over-arching guideline to be followed is the overhead that will be incurred when dealing with a large number of microservices. This overhead could be in terms of developer head count, delivery timeline, infra-structure tooling (CI/CD support, etc.) and most importantly overall system performance.
 
-Regardless of which approach is used for translation of PARL table into number of microservices, an unambiguous mechanism to corelate the two is needed. This paper proposes a simple naming convention to uniquely identify the rows in the PARL table and corresponding microservice(s).
+Regardless of which approach is used for translation of PARL table into number of microservices, an unambiguous mechanism to corelate the two is needed. This article proposes a simple naming convention to uniquely identify the rows in the PARL table and corresponding microservice(s).
 
 ### Number assignment
 
