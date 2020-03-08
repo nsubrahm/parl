@@ -362,4 +362,6 @@ The first two columns is the view of the software development team and the rest 
 
 This article presented the **PARL approach** to align the business organization and the software development team. The **PARL table** developed, from the **PARL approach**, covers the requirements in the most granular level. Then, the **microservice table** translates the number of rows in the **PARL table** into number of microservices to be developed. Finally, the **deployment table** provides an end-to-end view of the development cycle in terms of unit of deployment and the granular requirement served by it.
 
-END.
+*END*.
+
+*Disclaimer: The views and opinions in this article are completely my own.*
